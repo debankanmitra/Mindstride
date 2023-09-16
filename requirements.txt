@@ -1,0 +1,8 @@
+langchain
+openai
+gradio
+pypdf
+PyPDF2
+faiss-cpu
+tiktoken
+pinecone-client
