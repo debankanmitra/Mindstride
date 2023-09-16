@@ -3,9 +3,7 @@
   font-family: 'Barlow Condensed', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  font-size: 3.2em;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 1); 
   background-color: rgba(1, 3, 2, 1);
 
   font-synthesis: none;
@@ -15,7 +13,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
@@ -67,4 +65,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
