@@ -1,6 +1,6 @@
 # legal
 
-
+Legal App
 
 ## Getting started
 
