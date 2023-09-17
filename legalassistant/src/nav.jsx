@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 
 // eslint-disable-next-line react-refresh/only-export-components
-const Wrapper = styled.nav`
+const Wrapper = styled.section`
+padding: 5px;
 nav {
     display: flex;
     font-size: 1.5rem;
 
     li {
       list-style-type: none;
-      padding: 0px 20px;
+      padding: 0px 20px 2px 20px;
       border-radius: 5px;
 
       a {
