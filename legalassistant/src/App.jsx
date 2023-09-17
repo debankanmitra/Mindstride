@@ -1,13 +1,15 @@
 import './App.css'
-import Header from './header'
-import Landingpage from './landingpage'
+import Upper from './upper'
+import Middle from './middle'
+import Lower from './lower'
 
 function App() {
 
   return (
     <>
-    <Header/>
-    <Landingpage/>
+    <Upper/>
+    <Middle/>
+    <Lower/>
     </>
   )
 }
