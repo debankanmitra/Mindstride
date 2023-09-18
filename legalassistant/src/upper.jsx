@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Header from "./header";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Wrapper = styled.section`
@@ -10,7 +11,7 @@ const Wrapper = styled.section`
 function upper() {
   return(
     <Wrapper>
-     <div>upper</div>
+     <Header/>
     </Wrapper>
   )
 }
