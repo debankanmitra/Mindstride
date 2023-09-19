@@ -36,20 +36,27 @@ nav {
 }
 @media only screen and (max-width: 767px){
   nav{
+    position: absolute;
+    top: 12vh;
     text-align: center;
-    display: none;
+    display: ${props => props.isOpen? 'block':'none'}
   }
   nav li a {
-    display: block;
+    /* display: block; */
     padding: 20px;
+    transition: color 1s ease, padding 1s ease, background-color 1s ease;
+  }
+  li a:hover{
+    color: #b1d4e0;
+    padding-left: 30px;
   }
 }
   `;
 
-function nav() {
+function nav({isOpen}) {
   return (
     <>
-    <Wrapper>
+    <Wrapper isOpen={isOpen}>
     <nav>       
         <li><a href="#">About</a></li>
         <li><a href="#">How it Works</a></li>
