@@ -31,20 +31,22 @@ nav {
   }
 @media only screen and (min-width: 768px) and (max-width: 991px){
   nav{
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 }
 @media only screen and (max-width: 767px){
   nav{
+    /* code for nav background */
+    /* border: 1px solid red; */
     position: absolute;
     top: 12vh;
-    text-align: center;
     display: ${props => props.isOpen? 'block':'none'}
+    /* text-align: center; */
   }
   nav li a {
-    /* display: block; */
-    padding: 20px;
+    padding: 5px;
     transition: color 1s ease, padding 1s ease, background-color 1s ease;
+    /* display: block; */
   }
   li a:hover{
     color: #b1d4e0;
