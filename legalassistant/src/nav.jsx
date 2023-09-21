@@ -36,6 +36,7 @@ nav {
 }
 @media only screen and (max-width: 767px){
   nav{
+    width: 40vw;
     /* code for nav background */
     /* border: 1px solid red; */
     position: absolute;

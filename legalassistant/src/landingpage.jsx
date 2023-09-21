@@ -2,30 +2,60 @@ import styled from "styled-components";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Wrapper = styled.section`
+#main{
+border: 1px solid red;
+margin: 0 auto;
+width: 90%;
 display: flex;
+justify-content: space-between;
+align-items: center;
     .headline{
         /* float: left; */
+        margin-right: 20px;
         border: 1px solid #0f30b4;
         h1{
             border: 1px solid #04d326;
-            font-size: 5rem;
-            color: aliceblue;
+            font-size: 6em;
+            line-height: 1em;
+            text-align: left; 
+            color: #ffffff;
         }
         h4{
             border: 1px solid #00ec20;
-            font-size: 2rem;
-            color: antiquewhite;
+            font-size: 1.25em;
+            text-align: left;
+            color: #ffffff;
         }
     }
-    .dblob{
-        border: 1px solid #0f30b4;
-        /* padding: 20px 20px 20px 20px; */
-        /* display: grid;
-        place-items: center; */
         img{
             border: 1px solid #00ec20;
-            width: 70%;
-            float: right;
+            width: 30%;
+            /* float: right; */
+            margin-left: 20px;
+        }
+    }
+    @media only screen and (min-width: 768px) and (max-width: 991px){
+        #main .headline h1{
+            font-size: 5em;
+        }
+        #main img{
+            width: 60%;
+        }
+    }
+    @media only screen and (max-width: 767px){
+        #main .headline h1{
+            font-size: 4.4rem;
+            align-items: center;
+        }
+        #main img{
+            width: 45%;
+            margin: 2rem;
+        }
+        #main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
         }
     }
 `;
@@ -33,13 +63,13 @@ display: flex;
 function landingpage() {
   return (
     <>
-    <Wrapper>
-    <div className="headline">
-    <h1>Empower Your Legal <br/>   Practice with AI <br/> Assistance</h1><br/>
-    <h4>Your Trusted Partner in Legal Innovation <br/> with futuristic AI brain with legal documents</h4>
-    </div>
-    <div className="dblob">
-    <img src="/vite.svg" alt="" />   
+    <Wrapper className="wrapper">
+    <div id="main">
+        <div className="headline">
+        <h1>Empower Your Legal <br/>   Practice with AI <br/> Assistance</h1><br/>
+        <h4><strong>Your Trusted Partner in Legal Innovation with futuristic AI brain with legal documents Large companies are using AI to charge fees, collect debts and spam consumers. Legal.AI is a highly motivated team, that builds tools to fight back. Our tools help level the playing field, giving power to the people.</strong></h4>
+        </div>
+        <img src="/vite.svg" alt="" />   
     </div>
     </Wrapper>
     </>
