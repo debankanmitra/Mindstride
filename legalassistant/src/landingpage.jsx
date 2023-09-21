@@ -23,8 +23,25 @@ align-items: center;
         h4{
             border: 1px solid #00ec20;
             font-size: 1.25em;
+            /* margin-top: 0.5rem; */
             text-align: left;
             color: #ffffff;
+        }
+        button{
+            width: 200px;
+            padding: 15px 0;
+            background: #ffffff;
+            border: 1px solid #ffffff;
+            color: #010203ff;
+            cursor: pointer;
+            overflow: hidden;
+            font-size: 18px;
+            margin-top: 2rem;
+            border-radius:30px;
+            &:hover{
+                background: #e6e0e0;
+                border: 1px solid #e6e0e0;
+            }
         }
     }
         img{
@@ -49,13 +66,13 @@ align-items: center;
         }
         #main img{
             width: 45%;
-            margin: 2rem;
+            margin-top: 3rem;
         }
         #main{
             display: flex;
             flex-direction: column;
             align-items: center;
-            
+            text-align: center;
         }
     }
 `;
@@ -68,6 +85,7 @@ function landingpage() {
         <div className="headline">
         <h1>Empower Your Legal <br/>   Practice with AI <br/> Assistance</h1><br/>
         <h4><strong>Your Trusted Partner in Legal Innovation with futuristic AI brain with legal documents Large companies are using AI to charge fees, collect debts and spam consumers. Legal.AI is a highly motivated team, that builds tools to fight back. Our tools help level the playing field, giving power to the people.</strong></h4>
+        <button type="button">Lets Chat</button>
         </div>
         <img src="/vite.svg" alt="" />   
     </div>
