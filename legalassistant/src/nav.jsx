@@ -29,12 +29,12 @@ nav {
       }
     }
   }
-@media only screen and (min-width: 768px) and (max-width: 991px){
+@media only screen and (768px <= width<= 991px){
   nav{
     font-size: 1.2rem;
   }
 }
-@media only screen and (max-width: 767px){
+@media only screen and (width<= 767px){
   nav{
     width: 40vw;
     /* code for nav background */

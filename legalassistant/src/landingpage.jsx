@@ -51,7 +51,7 @@ align-items: center;
             margin-left: 20px;
         }
     }
-    @media only screen and (min-width: 768px) and (max-width: 991px){
+    @media only screen and (768px <= width <= 991px){
         #main .headline h1{
             font-size: 5em;
         }
@@ -59,7 +59,7 @@ align-items: center;
             width: 60%;
         }
     }
-    @media only screen and (max-width: 767px){
+    @media only screen and (width<= 767px){
         #main .headline h1{
             font-size: 4.4rem;
             align-items: center;
