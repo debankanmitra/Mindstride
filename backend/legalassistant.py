@@ -1,12 +1,13 @@
+from dotenv import load_dotenv
 import os
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
-#from langchain.vectorstores import FAISS
 from langchain.vectorstores import Pinecone
 import pinecone
 
-
+load_dotenv()
+# gitignore, env , venv
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 
@@ -16,14 +17,14 @@ from langchain.chains import RetrievalQA
 
 
 # APIS
-os.environ['OPENAI_API_KEY'] = "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"
-os.environ["PINECONE_API_KEY"] = "2672f1e3-68be-4a5f-a00f-a53428cf43e9"
-os.environ["PINECONE_ENV"] = "gcp-starter"
+OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
+PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
+PINECONE_ENV=os.getenv("PINECONE_ENV")
 
 # initialize pinecone Datastore
 pinecone.init(
-    api_key=os.getenv("PINECONE_API_KEY"),  # find at app.pinecone.io
-    environment=os.getenv("PINECONE_ENV"),  # next to api key in console
+    api_key=PINECONE_API_KEY,  # find at app.pinecone.io
+    environment=PINECONE_ENV,  # next to api key in console
 )
 
 

@@ -25,7 +25,7 @@ const Head = styled.section`
   border-radius: 5px;
   display: none;
  }
- @media only screen and (width<=767px){
+ @media only screen and (max-width: 767px){
   .humbarger .bar{
     display: block;
   }
