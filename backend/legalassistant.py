@@ -38,7 +38,7 @@ if "langchain-demo" not in pinecone.list_indexes():
 )
 
 # Loading pdf
-loader = PdfReader("osi.pdf")
+loader = PdfReader("cow.pdf")
 
 # Reading all the pages and extracting the text and concatenate 
 text = ''
@@ -58,18 +58,18 @@ text_splitter = RecursiveCharacterTextSplitter(
 texts = text_splitter.split_text(text)
 
 # Text embeddings in vector space
-embeddings = OpenAIEmbeddings()
+embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 #vectorstore = FAISS.from_texts(texts, embeddings)
 vectorstore = Pinecone.from_texts(texts,embeddings,index_name="langchain-demo")
 
 # Similarity search (retrieval)
-query = "what is a osi model?"
-docs = vectorstore.similarity_search(query)
+query = "what is a alien?"
+#docs = vectorstore.similarity_search(query)
 # print(docs[0].page_content)
 
 
 # LLM produced answer using Generation (Method 1)
-llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.43, max_tokens=100)
 chain = RetrievalQA.from_chain_type(llm,retriever=vectorstore.as_retriever())
 answer=chain({"query": query})
 print(answer["result"])
