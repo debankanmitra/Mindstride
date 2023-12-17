@@ -7,7 +7,7 @@ from langchain.vectorstores import Pinecone
 import pinecone
 
 load_dotenv()
-# gitignore, env , venv
+
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 
@@ -38,7 +38,7 @@ if "langchain-demo" not in pinecone.list_indexes():
 )
 
 # Loading pdf
-loader = PdfReader("constitution.pdf")
+loader = PdfReader("osi.pdf")
 
 # Reading all the pages and extracting the text and concatenate 
 text = ''
@@ -63,7 +63,7 @@ embeddings = OpenAIEmbeddings()
 vectorstore = Pinecone.from_texts(texts,embeddings,index_name="langchain-demo")
 
 # Similarity search (retrieval)
-query = "why a lion roar?"
+query = "what is a osi model?"
 docs = vectorstore.similarity_search(query)
 # print(docs[0].page_content)
 

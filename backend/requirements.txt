@@ -1,5 +1,6 @@
 langchain
 openai
-pypdf
+PyPDF2
 tiktoken
 pinecone-client
+python-dotenv
