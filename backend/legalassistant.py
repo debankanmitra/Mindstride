@@ -1,25 +1,22 @@
-from dotenv import load_dotenv
 import os
-from PyPDF2 import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Pinecone
 import pinecone
-
-load_dotenv()
-
-from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
+from langchain.vectorstores import Pinecone
+from langchain.chat_models import ChatOpenAI
+from langchain.embeddings import OpenAIEmbeddings
 
 # from langchain.llms import OpenAI
 # from langchain.chains.question_answering import load_qa_chain
 
+load_dotenv()
 
 
 # APIS
 OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
 PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
 PINECONE_ENV=os.getenv("PINECONE_ENV")
+PINECONE_INDEX=os.getenv("PINECONE_INDEX")
 
 # initialize pinecone Datastore
 pinecone.init(
@@ -28,49 +25,22 @@ pinecone.init(
 )
 
 
-# First, check if our index already exists. If it doesn't, we create it
-if "langchain-demo" not in pinecone.list_indexes():
-    # we create a new index
-    pinecone.create_index(
-      name="langchain-demo",
-      metric='cosine',
-      dimension=1536  
-)
 
-# Loading pdf
-loader = PdfReader("cow.pdf")
-
-# Reading all the pages and extracting the text and concatenate 
-text = ''
-for i,page in enumerate (loader.pages):
-    content = page.extract_text()
-    if content:
-        text += content
-
-#  Text splitters break Documents into splits of specified size
-text_splitter = RecursiveCharacterTextSplitter(
-    separators=["\n\n", "\n", " "],
-    chunk_size = 500,
-    chunk_overlap  = 200,
-    length_function = len,
-)
-
-texts = text_splitter.split_text(text)
 
 # Text embeddings in vector space
 embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 #vectorstore = FAISS.from_texts(texts, embeddings)
-vectorstore = Pinecone.from_texts(texts,embeddings,index_name="langchain-demo")
+vectorstore = Pinecone.from_existing_index(PINECONE_INDEX, embeddings)
 
 # Similarity search (retrieval)
-query = "what is a alien?"
-#docs = vectorstore.similarity_search(query)
+query = "write a song on messi"
+docs = vectorstore.similarity_search(query,k=5) # k = 5  => number of documents to retrieve
 # print(docs[0].page_content)
 
 
 # LLM produced answer using Generation (Method 1)
 llm = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.43, max_tokens=100)
-chain = RetrievalQA.from_chain_type(llm,retriever=vectorstore.as_retriever())
+chain = RetrievalQA.from_llm(llm=llm, retriever=vectorstore.as_retriever())
 answer=chain({"query": query})
 print(answer["result"])
 
