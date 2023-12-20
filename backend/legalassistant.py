@@ -5,9 +5,7 @@ from langchain.chains import RetrievalQA
 from langchain.vectorstores import Pinecone
 from langchain.chat_models import ChatOpenAI
 from langchain.embeddings import OpenAIEmbeddings
-
-# from langchain.llms import OpenAI
-# from langchain.chains.question_answering import load_qa_chain
+from langchain.chains.question_answering import load_qa_chain
 
 load_dotenv()
 
@@ -29,20 +27,21 @@ pinecone.init(
 
 # Text embeddings in vector space
 embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
-#vectorstore = FAISS.from_texts(texts, embeddings)
+
 vectorstore = Pinecone.from_existing_index(PINECONE_INDEX, embeddings)
 
 # Similarity search (retrieval)
-query = "write a song on messi"
-docs = vectorstore.similarity_search(query,k=5) # k = 5  => number of documents to retrieve
-# print(docs[0].page_content)
+query = "what is a tiger?"
+docs=vectorstore.similarity_search(query,k=3) # k = 5  => number of documents to retrieve
 
 
 # LLM produced answer using Generation (Method 1)
-llm = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.43, max_tokens=100)
-chain = RetrievalQA.from_llm(llm=llm, retriever=vectorstore.as_retriever())
-answer=chain({"query": query})
-print(answer["result"])
+llm = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.43, max_tokens=50)
+# We can also include the sources of information that the LLM is using to answer our question. 
+#We can do this using a slightly different version of RetrievalQA called RetrievalQAWithSourcesChain
+chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectorstore.as_retriever())
+answer=chain.run({"query": query})
+print(answer)
 
 
 # LLM produced answer using Generation (Method: 2 )

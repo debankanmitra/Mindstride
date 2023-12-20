@@ -3,4 +3,5 @@ openai
 PyPDF2
 tiktoken
 pinecone-client
+"pinecone-client[grpc]"
 python-dotenv

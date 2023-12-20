@@ -1,15 +1,17 @@
 # Do embeddings of textual data in a vector space like Pinecone
+# https://youtu.be/ySus5ZS0b94?si=Ml_ExkivVtDLAzKe
 
 import os
 import pinecone
-from PyPDF2 import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Pinecone
+from text_processing import extract_text_from_pdf, transform_text
 
 PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
 PINECONE_ENV=os.getenv("PINECONE_ENV")
 PINECONE_INDEX=os.getenv("PINECONE_INDEX")
+PINECONE_METRIC=os.getenv("PINECONE_METRIC")
+PINECONE_DIMENSION=os.getenv("PINECONE_DIMENSION")
 
 # initialize pinecone Datastore
 pinecone.init(
@@ -18,38 +20,24 @@ pinecone.init(
 )
 
 # First, check if our index already exists. If it doesn't, we create it
-if "langchain-demo" not in pinecone.list_indexes():
+if PINECONE_INDEX not in pinecone.list_indexes():
     # we create a new index
     pinecone.create_index(
-      name="langchain-demo",
-      metric='cosine',
-      dimension=1536  
+      name=PINECONE_INDEX,
+      metric=PINECONE_METRIC,
+      dimension=PINECONE_DIMENSION  
 )
 
-# Loading pdf
-loader = PdfReader("cow.pdf")
+# Loading pdf, extracting text ,concatenating and transforming text
+pdf_texts = extract_text_from_pdf("cow.pdf")
 
-# Reading all the pages and extracting the text and concatenate 
-text = ''
-for i,page in enumerate (loader.pages):
-    content = page.extract_text()
-    if content:
-        text += content
-
-#  Text splitters break Documents into splits of specified size
-text_splitter = RecursiveCharacterTextSplitter(
-    separators=["\n\n", "\n", " "],
-    chunk_size = 500,
-    chunk_overlap  = 200,
-    length_function = len,
-)
-
-texts = text_splitter.split_text(text)
+texts = transform_text(pdf_texts)
 
 
 # Text embeddings in vector space
 embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 
 # The from_texts() function in Pinecone's vector store is used to upload both text documents and 
-#their corresponding embedding vectors to a specified Pinecone index.
+# their corresponding embedding vectors to a specified Pinecone index.
+# this database works like a sql database there will be two columns (text and embedding)
 vectorstore = Pinecone.from_texts(texts,embeddings,index_name=PINECONE_INDEX)
