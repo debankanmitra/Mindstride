@@ -1,7 +1,7 @@
 langchain
-openai
+openai==0.28
 PyPDF2
 tiktoken
 pinecone-client
-"pinecone-client[grpc]"
+pinecone-client[grpc]
 python-dotenv
