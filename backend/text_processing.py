@@ -1,4 +1,5 @@
 ## extract and Processes text from pdf
+## to get systematic pdf output: https://burdoc.readthedocs.io/en/latest/getting_started.html
 
 import os
 import re

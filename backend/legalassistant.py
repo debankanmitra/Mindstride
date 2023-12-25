@@ -1,3 +1,5 @@
+# https://cookbook.openai.com/examples/deterministic_outputs_with_the_seed_parameter
+
 import os
 import pinecone
 from dotenv import load_dotenv
@@ -36,7 +38,7 @@ docs=vectorstore.similarity_search(query,k=3) # k = 5  => number of documents to
 
 
 # LLM produced answer using Generation (Method 1)
-llm = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.43, max_tokens=50)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.1, max_tokens=50, model_kwargs={"seed":235, "top_p":0.01})
 # We can also include the sources of information that the LLM is using to answer our question. 
 #We can do this using a slightly different version of RetrievalQA called RetrievalQAWithSourcesChain
 chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectorstore.as_retriever())

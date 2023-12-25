@@ -43,9 +43,8 @@ index = pinecone.GRPCIndex(PINECONE_INDEX)
 
 
 # Loading pdf, extracting text ,concatenating and transforming text
-pdf_texts = extract_text_from_pdf("zebra.pdf")
+pdf_texts = extract_text_from_pdf("long.pdf")
 texts = transform_text(pdf_texts)
-
 
 
 # # Text embeddings in vector space
