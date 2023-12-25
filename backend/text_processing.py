@@ -6,6 +6,7 @@ import re
 from dotenv import load_dotenv
 import openai
 from PyPDF2 import PdfReader
+from pdfminer.high_level import extract_text
 from text_encoding import tiktoken_len
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
@@ -17,12 +18,13 @@ OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
 
 # Text Extraction
 def extract_text_from_pdf(pdf_path):
-    reader = PdfReader(pdf_path)
-    text = ""
-    for page in reader.pages:
-        content = page.extract_text()
-        if content:
-            text += content
+    text = extract_text(pdf_path)
+    # reader = PdfReader(pdf_path)
+    # text = ""
+    # for page in reader.pages:
+    #     content = page.extract_text()
+    #     if content:
+    #         text += content
     texts = clean_text(text)
     return texts
 
