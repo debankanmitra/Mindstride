@@ -1,32 +1,40 @@
+import os
+from dotenv import load_dotenv
 import pinecone
 from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain.vectorstores import Pinecone
 
 from text_processing import extract_text_from_pdf, transform_text
 
+load_dotenv()
+PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
+PINECONE_ENV=os.getenv("PINECONE_ENV")
+PINECONE_INDEX=os.getenv("PINECONE_INDEX")
+PINECONE_METRIC= os.getenv("PINECONE_METRIC")
+PINECONE_DIMENSION= os.getenv("PINECONE_DIMENSION")
+HF_API=os.getenv("HF_API")
+HF_MODEL=os.getenv("HF_MODEL")
+
 pinecone.init(
-    api_key='078c0c2d-f856-4c05-8f89-cb3b5f50b54d', 
-    environment='gcp-starter',  
+    api_key=PINECONE_API_KEY, 
+    environment=PINECONE_ENV,  
 )
-# implement the whole without langchain
+
 
 # First, check if our index already exists. If it doesn't, we create it
-if 'legal-gpt' not in pinecone.list_indexes():
-    # we create a new index
+if PINECONE_INDEX not in pinecone.list_indexes():
     pinecone.create_index(
-      name='legal-gpt',
-      metric='cosine',
-      dimension=1024,
+      name=PINECONE_INDEX,
+      metric=PINECONE_METRIC,
+      dimension=PINECONE_DIMENSION,
 )
     
 
-pdf_texts = extract_text_from_pdf("cow.pdf")
+pdf_texts = extract_text_from_pdf("Atomic Habits.pdf")
 texts = transform_text(pdf_texts)
 
-embeddings = HuggingFaceInferenceAPIEmbeddings(api_key='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',model_name="llmrails/ember-v1")
-# query_result = embeddings.embed_query(texts[0])
-# print(query_result)
-#vectorstore = Pinecone.from_texts(texts,embeddings,index_name='legal-gpt')
+embeddings = HuggingFaceInferenceAPIEmbeddings(api_key=HF_API, model_name=HF_MODEL)
+
 for text in texts:
-    vectorstore = Pinecone.from_texts([text],embeddings,index_name='legal-gpt')
+    vectorstore = Pinecone.from_texts([text], embeddings, index_name=PINECONE_INDEX)
 
