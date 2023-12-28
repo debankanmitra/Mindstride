@@ -17,6 +17,7 @@ OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
 PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
 PINECONE_ENV=os.getenv("PINECONE_ENV")
 PINECONE_INDEX=os.getenv("PINECONE_INDEX")
+TEXT_EMBEDDING_MODEL=os.getenv("TEXT_EMBEDDING_MODEL")
 
 # initialize pinecone Datastore
 pinecone.init(
@@ -28,21 +29,21 @@ pinecone.init(
 
 
 # Text embeddings in vector space
-embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+embeddings = OpenAIEmbeddings(model=TEXT_EMBEDDING_MODEL)
 
 vectorstore = Pinecone.from_existing_index(PINECONE_INDEX, embeddings)
 
 # Similarity search (retrieval)
-query = "what is a tiger?"
+query = "which country has most cows?"
 docs=vectorstore.similarity_search(query,k=3) # k = 5  => number of documents to retrieve
 
 
 # LLM produced answer using Generation (Method 1)
-llm = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.1, max_tokens=50, model_kwargs={"seed":235, "top_p":0.01})
+llm = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0, max_tokens=50, model_kwargs={"seed":235, "top_p":0.01})
 # We can also include the sources of information that the LLM is using to answer our question. 
 #We can do this using a slightly different version of RetrievalQA called RetrievalQAWithSourcesChain
 chain = RetrievalQA.from_chain_type(llm, chain_type="stuff", retriever=vectorstore.as_retriever())
-answer=chain.run({"query": query})
+answer=chain.run({"query": query + "“You can only make conversations related to the provided context. If a response cannot be formed strictly using the context, politely say you don’t have knowledge about that topic.”"})
 print(answer)
 
 

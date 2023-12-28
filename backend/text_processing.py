@@ -1,4 +1,4 @@
-## extract and Processes text from pdf
+## extract and Processes text from pdf, Amazon Textract PDF Parser
 ## to get systematic pdf output: https://burdoc.readthedocs.io/en/latest/getting_started.html
 
 import os
