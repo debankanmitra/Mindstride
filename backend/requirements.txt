@@ -1,9 +1,7 @@
 langchain
 openai==0.28
-PyPDF2
 pdfminer.six
 tiktoken
 pinecone-client
-# pinecone-client[grpc]
 python-dotenv
 pandoc

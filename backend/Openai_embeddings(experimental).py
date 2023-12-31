@@ -1,3 +1,6 @@
+# Experiemental embeddings in OpenAI
+
+
 # Do embeddings of textual data in a vector space like Pinecone
 # https://youtu.be/ySus5ZS0b94?si=Ml_ExkivVtDLAzKe
 # https://colab.research.google.com/github/openai/openai-cookbook/blob/master/examples/vector_databases/pinecone/Semantic_Search.ipynb#scrollTo=Hg0yIGu3tRNo

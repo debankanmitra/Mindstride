@@ -5,7 +5,6 @@ import os
 import re
 from dotenv import load_dotenv
 import openai
-from PyPDF2 import PdfReader
 from pdfminer.high_level import extract_text
 from text_encoding import tiktoken_len
 from langchain.text_splitter import RecursiveCharacterTextSplitter
