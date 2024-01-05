@@ -5,3 +5,5 @@ tiktoken
 pinecone-client
 python-dotenv
 pandoc
+fastapi 
+uvicorn
