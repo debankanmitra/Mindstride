@@ -7,3 +7,4 @@ python-dotenv
 pandoc
 fastapi 
 uvicorn
+mangum
