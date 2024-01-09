@@ -8,3 +8,5 @@ __pycache__/*
 data
 /data
 ./data
+lib
+lambda_function.zip

@@ -2,23 +2,22 @@
 
 import os
 import pinecone
-from dotenv import load_dotenv
+import openai
 from langchain.chains import RetrievalQA
 from langchain.vectorstores import Pinecone
 from langchain.chat_models import ChatOpenAI
 from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
 
-load_dotenv()
 
 
 # APIS
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
-PINECONE_ENV = os.getenv("PINECONE_ENV")
-PINECONE_INDEX = os.getenv("PINECONE_INDEX")
-TEXT_EMBEDDING_MODEL = os.getenv("TEXT_EMBEDDING_MODEL")
-HF_MODEL = os.getenv("HF_MODEL")
-HF_API = os.getenv("HF_API")
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+PINECONE_API_KEY = os.environ["PINECONE_API_KEY"]
+PINECONE_ENV = os.environ["PINECONE_ENV"]
+PINECONE_INDEX = os.environ["PINECONE_INDEX"]
+TEXT_EMBEDDING_MODEL = os.environ["TEXT_EMBEDDING_MODEL"]
+HF_MODEL = os.environ["HF_MODEL"]
+HF_API = os.environ["HF_API"]
 
 
 def query_from_model(query):

@@ -1,5 +1,6 @@
-fastapi 
+openai==0.28
+fastapi==0.105.0
 uvicorn
 mangum
-langchain
-pinecone-client
+langchain==0.0.350
+pinecone-client==2.2.4
