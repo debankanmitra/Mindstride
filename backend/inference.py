@@ -4,9 +4,9 @@ import os
 import pinecone
 import openai
 from langchain.chains import RetrievalQA
-from langchain.vectorstores import Pinecone
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
+from langchain_community.vectorstores import Pinecone
+from langchain_community.chat_models import ChatOpenAI
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 
 
 

@@ -3,4 +3,5 @@ fastapi==0.105.0
 uvicorn
 mangum
 langchain==0.0.350
+langchain-community
 pinecone-client==2.2.4
