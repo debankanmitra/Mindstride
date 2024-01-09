@@ -1,0 +1,63 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+version: 2.1
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+orbs:
+  # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
+  python: circleci/python@1.5.0
+  aws-cli: circleci/aws-cli@1.0.0
+
+# Define a job to be invoked later in a workflow.
+jobs:
+  build_project: # This is the name of the job
+    # These next lines defines a Docker executors
+    # Change the version below to your required version of python
+    docker:
+      - image: cimg/python:3.10.2
+    steps:
+      - checkout
+      # - python/install-packages:
+      #     pkg-manager: pip
+      - run:
+          name: Change directory
+          command: cd backend/
+      - run:
+          name: Installing dependencies
+          command: pip install -t lib -r requirements_prod.txt
+          # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
+          # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
+      - run:
+          name: zipping the dependencies
+          command: (cd lib; zip ../lambda_function.zip -r .)
+      - run:
+          name: zipping files
+          command: zip lambda_function.zip -u main.py inference.py
+      - persist_to_workspace:
+          root: .
+          paths:
+            - lambda_function.zip
+  
+  deploy_project:
+    executor: aws-cli/default
+    steps:
+      - attach_workspace:
+          at: .
+      - aws-cli/setup:
+          aws-region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_KEY
+      - run:
+          name: Upload file to S3
+          command: aws s3 cp lambda_function.zip s3://mindstride-lambda-post --delete --exact-timestamps
+      - run:
+          name: Deploy to Lambda
+          command: aws lambda update-function-code --function-name mindstride-fastapi --s3-bucket mindstride-lambda-post --s3-key lambda_function.zip
+
+# Invoke jobs via workflows
+workflows:
+  deploy-to-lambda:
+    jobs:
+      - build_project
+      - deploy_project:
+          requires:
+            - build_project
