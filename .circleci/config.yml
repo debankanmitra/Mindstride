@@ -16,14 +16,14 @@ jobs:
       - image: cimg/python:3.10.2
     steps:
       - checkout
-      - run:
-          name: list directory
-          command: ls
       # - python/install-packages:
       #     pkg-manager: pip
       - run:
           name: Change directory
           command: cd backend
+      - run:
+          name: list directory
+          command: ls
       - run:
           name: Installing dependencies
           command: pip install -t lib -r requirements_prod.txt
