@@ -10,9 +10,7 @@ orbs:
 # Define a job to be invoked later in a workflow.
 jobs:
   build_project: # This is the name of the job
-    # These next lines defines a Docker executors
-    # Change the version below to your required version of python
-    docker:
+    docker:  # Docker executors, Change the version below to your required version of python
       - image: cimg/python:3.12.1
     steps:
       - checkout
@@ -26,9 +24,6 @@ jobs:
           name: Create deployment package
           command: (cd lib; zip ../lambda_function.zip -r .) && zip lambda_function.zip -u main.py && zip lambda_function.zip -u inference.py
           working_directory: backend
-      - run:
-          name: list directory
-          command: ls
       - run:
           name: list directory
           command: ls
