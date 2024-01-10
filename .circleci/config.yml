@@ -15,12 +15,13 @@ jobs:
     docker:
       - image: cimg/python:3.10.2
     steps:
-      - checkout
+      - checkout:
       # - python/install-packages:
       #     pkg-manager: pip
+          path: ~/backend
       - run:
-          name: Change directory
-          command: cd backend
+          name: list directory
+          command: ls
       - run:
           name: Installing dependencies
           command: pip install -t lib -r requirements_prod.txt
