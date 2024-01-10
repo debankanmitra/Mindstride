@@ -27,6 +27,9 @@ jobs:
           name: Create deployment package
           command: (cd lib; zip ../lambda_function.zip -r .)
           working_directory: backend
+      - run:
+          name: list directory
+          command: ls
       # - run:
       #     name: zipping the dependencies
       #     command: (cd lib; zip ../lambda_function.zip -r .)
