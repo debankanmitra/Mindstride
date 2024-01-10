@@ -43,7 +43,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - lambda_function.zip
+            - backend/lambda_function.zip
   
   deploy_project:
     executor: aws-cli/default
