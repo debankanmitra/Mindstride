@@ -20,10 +20,10 @@ jobs:
       #     pkg-manager: pip
       - run:
           name: Change directory
-          command: cd backend
+          command: cd backend/
       - run:
           name: list directory
-          command: ls
+          command: ls -l
       - run:
           name: Installing dependencies
           command: pip install -t lib -r requirements_prod.txt
