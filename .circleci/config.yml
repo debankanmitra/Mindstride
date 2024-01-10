@@ -23,7 +23,7 @@ jobs:
       #     pkg-manager: pip
       - run:
           name: Change directory
-          command: cd GenaiAssistant/backend
+          command: cd backend
       - run:
           name: Installing dependencies
           command: pip install -t lib -r requirements_prod.txt
