@@ -36,6 +36,7 @@ jobs:
       - run:
           name: zipping files
           command: zip lambda_function.zip -u main.py inference.py
+          working_directory: backend
       - run:
           name: list directory
           command: ls
