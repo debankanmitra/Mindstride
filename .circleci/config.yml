@@ -52,12 +52,12 @@ jobs:
       # - run:
       #     name: Upload file to S3
       #     command: aws s3 cp backend/lambda_function.zip s3://mindstride-lambda-post
+      # - run:
+      #     name: Deploy to Lambda
+      #     command: aws lambda update-function-code --function-name mindstride-fastapi --s3-bucket mindstride-lambda-post --s3-key lambda_function.zip
       - run:
           name: Deploy to Lambda
-          command: aws lambda update-function-code \
-                  --function-name mindstride-fastapi \
-                  --zip-file fileb://backend/lambda_function.zip
-
+          command:   aws lambda update-function-code --function-name mindstride-fastapi --zip-file fileb://backend/lambda_function.zip
 
 # Invoke jobs via workflows
 workflows:
