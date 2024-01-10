@@ -13,9 +13,12 @@ jobs:
     # These next lines defines a Docker executors
     # Change the version below to your required version of python
     docker:
-      - image: cimg/python:3.10.2
+      - image: cimg/python:3.12.1
     steps:
       - checkout
+      - run:
+          name: Upgrade pip
+          command: pip install --upgrade pip
       - run:
           name: Change directory and install dependencies
           command: cd backend && pip install -t lib -r requirements_prod.txt
@@ -28,9 +31,6 @@ jobs:
       - run:
           name: list directory
           command: ls
-      # - run:
-      #     name: zipping the dependencies
-      #     command: (cd lib; zip ../lambda_function.zip -r .)
       - run:
           name: list directory
           command: ls
