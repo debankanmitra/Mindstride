@@ -20,15 +20,15 @@ jobs:
       #     pkg-manager: pip
       - run:
           name: Change directory
-          command: cd backend/
-      - run:
-          name: list directory
-          command: ls -l
+          command: cd backend
       - run:
           name: Installing dependencies
           command: pip install -t lib -r requirements_prod.txt
           # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
           # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
+      - run:
+          name: list directory
+          command: ls
       - run:
           name: zipping the dependencies
           command: (cd lib; zip ../lambda_function.zip -r .)
