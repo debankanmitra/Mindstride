@@ -11,6 +11,11 @@ Now add our FastAPI file and the JSON file.
 zip lambda_function.zip -u books.json
 ```
 
+
+I have learnt that 
+
+* versioning of everything is very import when deploy to production
+
 # Editing this README
 
 When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
