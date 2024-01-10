@@ -20,7 +20,7 @@ jobs:
       #     pkg-manager: pip
       - run:
           name: Change directory
-          command: cd backend/
+          command: cd /GenaiAssistant/backend/
       - run:
           name: Installing dependencies
           command: pip install -t lib -r requirements_prod.txt
@@ -32,6 +32,9 @@ jobs:
       - run:
           name: zipping files
           command: zip lambda_function.zip -u main.py inference.py
+      - run:
+          name: list directory
+          command: ls
       - persist_to_workspace:
           root: .
           paths:
@@ -42,10 +45,13 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: list directory
+          command: ls
       - aws-cli/setup:
-          aws-region: AWS_REGION
-          aws-access-key-id: AWS_ACCESS_KEY
-          aws-secret-access-key: AWS_SECRET_KEY
+          aws-region: AWS_DEFAULT_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
       - run:
           name: Upload file to S3
           command: aws s3 cp lambda_function.zip s3://mindstride-lambda-post --delete --exact-timestamps
