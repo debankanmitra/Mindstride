@@ -15,24 +15,21 @@ jobs:
     docker:
       - image: cimg/python:3.10.2
     steps:
-      - checkout:
-      # - python/install-packages:
-      #     pkg-manager: pip
-          path: ~/backend
+      - checkout
       - run:
-          name: list directory
-          command: ls
-      - run:
-          name: Installing dependencies
-          command: pip install -t lib -r requirements_prod.txt
+          name: Change directory and install dependencies
+          command: |
+            cd backend
+            pip install -t lib -r requirements_prod.txt
           # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
           # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
       - run:
-          name: list directory
-          command: ls
-      - run:
-          name: zipping the dependencies
+          name: Create deployment package
           command: (cd lib; zip ../lambda_function.zip -r .)
+          working_directory: backend
+      # - run:
+      #     name: zipping the dependencies
+      #     command: (cd lib; zip ../lambda_function.zip -r .)
       - run:
           name: zipping files
           command: zip lambda_function.zip -u main.py inference.py
