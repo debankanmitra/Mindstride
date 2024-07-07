@@ -2,9 +2,17 @@ langchain
 openai==0.28
 pdfminer.six
 tiktoken
-pinecone-client
+
 python-dotenv
 pandoc
 fastapi 
 uvicorn
 mangum
+langchain==0.0.350
+langchain-community
+cohere==5.5.8
+# langchain-cohere==0.1.8
+# langchain-pinecone==0.1.1
+pinecone-client==4.1.2
+groq==0.9.0
+google-generativeai==0.7.1

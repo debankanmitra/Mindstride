@@ -4,7 +4,7 @@ import pinecone
 from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain.vectorstores import Pinecone
 
-from text_processing import extract_text_from_pdf, transform_text
+from embeddings.text_processing import extract_text_from_pdf, transform_text
 
 load_dotenv()
 PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")

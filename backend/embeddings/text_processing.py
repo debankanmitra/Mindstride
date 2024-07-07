@@ -66,8 +66,8 @@ def text_replace(texts):
 
 def transform_text(text):
     text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=400,
-    chunk_overlap=20,
+    chunk_size=150, # Initial token estimate
+    chunk_overlap=30, # 20% of chunk_size
     length_function=tiktoken_len,
     separators=["\n\n", "\n", " ", ""]
     )
