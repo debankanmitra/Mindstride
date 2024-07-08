@@ -13,6 +13,8 @@ from inference.Groq import Query_from_groq
 co = None
 groq = None
 index = None
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
@@ -74,8 +76,6 @@ app.add_middleware(
 #     # server-sent events or streaming large files without loading them entirely into memory.
 #         res= StreamingResponse(generate_event(data), media_type="text/event-stream")
 #         return res
-
-
 
 
 

@@ -22,7 +22,7 @@ jobs:
           command: cd backend && pip install -t lib -r requirements_prod.txt
       - run:
           name: Create deployment package
-          command: (cd lib; zip ../lambda_function.zip -r .) && zip lambda_function.zip -u main.py && zip lambda_function.zip -u inference.py
+          command: (cd lib; zip ../lambda_function.zip -r .) && zip lambda_function.zip -u main.py && zip lambda_function.zip -u inference/
           working_directory: backend
       - run:
           name: list directory
