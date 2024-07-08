@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run:
           name: Upgrade pip
-          command: pip install pip==23.3.2
+          command: pip install pip==24.1.1
       - run:
           name: Change directory and install dependencies
           command: cd backend && pip install -t lib -r requirements_prod.txt
@@ -27,6 +27,9 @@ jobs:
       - run:
           name: list directory
           command: ls
+      - run:
+          name: Check size of zip file
+          command: ls -lh lambda_function.zip
       - persist_to_workspace:
           root: .
           paths:
@@ -40,6 +43,9 @@ jobs:
       - run:
           name: list directory
           command: ls
+      - run:
+          name: Check size of zip file
+          command: ls -lh backend/lambda_function.zip
       - aws-cli/setup:
           aws-region: AWS_DEFAULT_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
