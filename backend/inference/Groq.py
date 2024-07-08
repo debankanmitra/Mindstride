@@ -1,5 +1,3 @@
-
-
 def Query_from_groq(query, co, groq, index):
 
     # global keyword tells Python to use the global variables from the global scope
@@ -8,23 +6,18 @@ def Query_from_groq(query, co, groq, index):
     # create the query embedding
     xq = co.embed(
         texts=[query],
-        model='embed-english-light-v3.0',
-        input_type='search_query',
-        truncate='END'
+        model="embed-english-light-v3.0",
+        input_type="search_query",
+        truncate="END",
     ).embeddings[0]
 
-
     # query, returning the top 3 most similar results
-    query_results = index.query(
-        vector=xq,
-        top_k=3,
-        include_metadata=True
-    )
+    query_results = index.query(vector=xq, top_k=3, include_metadata=True)
 
     # concatenate results
-    context= ""
-    for match in query_results['matches']:
-        context += match['metadata']['text']
+    context = ""
+    for match in query_results["matches"]:
+        context += match["metadata"]["text"]
 
     # Define the prompt template
     prompt_template = f"""
@@ -37,17 +30,16 @@ def Query_from_groq(query, co, groq, index):
 
     Response:
     """
-    
 
     # Generate the response
     chat_completion = groq.chat.completions.create(
-    messages=[
-        {
-            "role": "user",
-            "content": prompt_template,
-        }
-    ],
-    model="gemma-7b-it",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt_template,
+            }
+        ],
+        model="gemma-7b-it",
     )
 
     return chat_completion.choices[0].message.content

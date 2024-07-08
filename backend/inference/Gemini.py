@@ -7,28 +7,25 @@ def Query_from_gemini(query, co, index):
     # global co, index
 
     if co is None or index is None:
-        raise ValueError("The global variables 'co' and 'index' must be initialized before using this function.")
+        raise ValueError(
+            "The global variables 'co' and 'index' must be initialized before using this function."
+        )
 
     # create the query embedding
     xq = co.embed(
         texts=[query],
-        model='embed-english-light-v3.0',
-        input_type='search_query',
-        truncate='END'
+        model="embed-english-light-v3.0",
+        input_type="search_query",
+        truncate="END",
     ).embeddings[0]
 
-
     # query, returning the top 3 most similar results
-    query_results = index.query(
-        vector=xq,
-        top_k=3,
-        include_metadata=True
-    )
+    query_results = index.query(vector=xq, top_k=3, include_metadata=True)
 
     # concatenate results
-    context= ""
-    for match in query_results['matches']:
-        context += match['metadata']['text']
+    context = ""
+    for match in query_results["matches"]:
+        context += match["metadata"]["text"]
 
     # Define the prompt template
     prompt_template = f"""
@@ -41,7 +38,7 @@ def Query_from_gemini(query, co, index):
     """
 
     # Generate the response
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel("gemini-1.5-flash")
     # Generate the response using the model
     response = model.generate_content(prompt_template)
 

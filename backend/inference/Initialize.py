@@ -32,13 +32,10 @@ async def Intialize():
             name=index_name,
             dimension=384,
             metric="cosine",
-            spec=ServerlessSpec(
-                cloud='aws', 
-                region='us-east-1'
-            )    
+            spec=ServerlessSpec(cloud="aws", region="us-east-1"),
         )
         while not pc.describe_index(index_name).status["ready"]:
-            time.sleep(1) 
+            time.sleep(1)
 
     index = pc.Index(index_name)
     return co, index, groq
