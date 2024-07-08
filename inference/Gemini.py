@@ -29,13 +29,17 @@ def Query_from_gemini(query, co, index):
 
     # Define the prompt template
     prompt_template = f"""
-    User Query: {query}
-    Context: {context}
-    Instructions: Based on the above context only, provide a response that addresses the user's query. Do not include any information or assumptions outside of the provided context. Ensure the response promotes mental health, well-being, personal development, and self-discovery.
-    Important: Based on the above context only, provide a response that addresses the user's query. Do not include any information or assumptions outside of the provided context. Ensure the response promotes mental health, well-being, personal development, and self-discovery.
+User Query: {query}
 
-    Response:
-    """
+Context: {context}
+
+Instructions: Based on the above context only, provide a response that addresses the user's query. Do not include any information or assumptions outside of the provided context. Ensure the response promotes mental health, well-being, personal development, and self-discovery. 
+
+Important: The user query should strictly be related to mental health, personal growth, self-improvement, well-being, personal development, or self-discovery. If the user query is not related to any of these topics, respond with 'The query is not related to mental health, personal growth, self-improvement, well-being, personal development, or self-discovery. Please ask something related to these topics.'
+
+Response:
+"""
+
 
     # Generate the response
     model = genai.GenerativeModel("gemini-1.5-flash")
