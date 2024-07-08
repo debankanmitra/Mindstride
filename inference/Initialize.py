@@ -13,18 +13,18 @@ async def Intialize():
     # global co, groq, index
 
     # initialize cohere
-    co = cohere.Client("R9SEqqMXEvlr6puuLoGOoRWnJ2Hobv1Ci50aqWgI")
+    co = cohere.Client(os.environ.get("COHERE_API_KEY"))
 
     # initialize Groq api
     groq = Groq(
-        api_key="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",
+        api_key=os.environ.get("GROQ_API_KEY"),
     )
 
     # initialize genai
-    genai.configure(api_key="AIzaSyC1cxcQNpntxkFbg-Ka5sy-EAAMErvjAiU")
+    genai.configure(api_key=os.environ.get("GENAI_API_KEY"))
 
     # initialize pinecone Datastore
-    pc = Pinecone(api_key="d96e1268-d194-4baf-a21e-8439099d741b")
+    pc = Pinecone(api_key=os.environ.get("PINECONE_API_KEY"))
 
     index_name = "mindstride"
     if index_name not in pc.list_indexes().names():
