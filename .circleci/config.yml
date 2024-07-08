@@ -18,22 +18,27 @@ jobs:
           name: Upgrade pip
           command: pip install pip==24.1.1
       - run:
-          name: Change directory and install dependencies
-          command: cd backend && pip install -t lib -r requirements_prod.txt
+          name: Install dependencies
+          command: pip install -t lib -r requirements_prod.txt
       - run:
           name: Create deployment package
-          command: (cd lib; zip ../lambda_function.zip -r .) && zip lambda_function.zip -u main.py && zip lambda_function.zip -u inference/
-          working_directory: backend
+          command: |
+            mkdir -p package
+            cp -r lib/* package/
+            cp -r inference package/
+            cp main.py package/
+            cd package
+            zip -r ../lambda_function.zip .
       - run:
           name: list directory
           command: ls
       - run:
           name: Check size of zip file
-          command: ls -lh backend/
+          command: ls -lh lambda_function.zip
       - persist_to_workspace:
           root: .
           paths:
-            - backend/lambda_function.zip
+            - lambda_function.zip
   
   deploy_project:
     executor: aws-cli/default
@@ -42,17 +47,17 @@ jobs:
           at: .
       - run:
           name: list directory
-          command: ls
+          command: ls -R
       - run:
           name: Check size of zip file
-          command: ls -lh backend/
+          command: ls -lh lambda_function.zip
       - aws-cli/setup:
           aws-region: AWS_DEFAULT_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
       - run:
           name: Upload file to S3
-          command: aws s3 cp backend/lambda_function.zip s3://mindstride-lambda
+          command: aws s3 cp lambda_function.zip s3://mindstride-lambda
       - run:
           name: Deploy to Lambda
           command: aws lambda update-function-code --function-name mindstride-fastapi --s3-bucket mindstride-lambda --s3-key lambda_function.zip

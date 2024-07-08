@@ -10,11 +10,11 @@ from langchain_pinecone import PineconeVectorStore
 from text_processing import extract_text_from_pdf, transform_text
 
 
-PINECONE_API_KEY="d96e1268-d194-4baf-a21e-8439099d741b"
-COHERE_API_KEY="qFJX4khcWaZNcRzOdmcHRQTlwfU1tfmRTmzvCGP6"
+PINECONE_API_KEY="d96e1"
+COHERE_API_KEY="qFJGP6"
 
 # initialize pinecone Datastore
-pc = Pinecone(api_key="d96e1268-d194-4baf-a21e-8439099d741b")
+pc = Pinecone(api_key="d96e1")
 
 index_name = "mindstride"
 if index_name not in pc.list_indexes().names():
