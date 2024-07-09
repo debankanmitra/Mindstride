@@ -1,15 +1,17 @@
+import asyncio
 from contextlib import asynccontextmanager
+from concurrent.futures import ThreadPoolExecutor
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
 from mangum import Mangum
 from inference.Initialize import Intialize
 from inference.Gemini import Query_from_gemini
 from inference.Groq import Query_from_groq
-
 # import uvicorn
 
+
+executor = ThreadPoolExecutor(max_workers=2)
 
 # co, groq, index defined at the module level to store the initialized objects
 co = None
@@ -57,12 +59,17 @@ class UserQuery(BaseModel):
 
 @app.post("/groq_inference")
 async def get_groq_inference(query: UserQuery):
-    response = Query_from_groq(query.user, co, groq, index)
+    loop = asyncio.get_event_loop()  # Get the current event loop
+    # Run Query_from_groq in a separate thread and await the result
+    response = await loop.run_in_executor(executor, Query_from_groq, query.user, co, groq, index)
     return {"output": response}
 
 
 @app.post("/gemini_inference")
 async def get_gemini_inference(query: UserQuery):
+    loop = asyncio.get_event_loop()  # Get the current event loop
+    # Run Query_from_gemini in a separate thread and await the result
+    response = await loop.run_in_executor(executor, Query_from_gemini, query.user, co, index)
     # sending modified co, index directly with the user query
     response = Query_from_gemini(query.user, co, index)
     return {"output": response}

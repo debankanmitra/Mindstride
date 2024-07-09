@@ -31,7 +31,7 @@ index = pc.Index(index_name)
 
 
 # Loading pdf, extracting text ,concatenating and transforming text
-pdf_texts = extract_text_from_pdf("The Almanack of Naval Ravikant.pdf")
+pdf_texts = extract_text_from_pdf("Don't Believe Everything You Think.pdf")
 texts = transform_text(pdf_texts)
 
 # The from_texts() function in Pinecone's vector store is used to upload both text documents and 
