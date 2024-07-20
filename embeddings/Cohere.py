@@ -7,7 +7,7 @@ from text_processing import extract_text_from_pdf, transform_text
 
 
 # initialize cohere
-co = cohere.Client("eiHcU0xKgplwRKQXyVveuqhFqITcuMrM2BUapyyz")
+co = cohere.Client("NKBd70jBNhJC56bUmbFARhu5HbLSu2A7ydZUhFz6")
 
 
 # initialize pinecone Datastore
@@ -31,7 +31,7 @@ index = pc.Index(index_name)
 
 
 # Loading pdf, extracting text ,concatenating and transforming text
-pdf_texts = extract_text_from_pdf("Don't Believe Everything You Think.pdf")
+pdf_texts = extract_text_from_pdf("The 7 Habits of Highly Effective People.pdf")
 texts = transform_text(pdf_texts)
 
 # The from_texts() function in Pinecone's vector store is used to upload both text documents and 
