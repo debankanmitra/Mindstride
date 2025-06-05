@@ -79,5 +79,5 @@ async def get_gemini_inference(query: UserQuery):
 # Create the Mangum handler
 # handler = Mangum(app)
 
-if __name__ == "__main__":
-    uvicorn.run(app)
+# if __name__ == "__main__":
+#     uvicorn.run(app)
