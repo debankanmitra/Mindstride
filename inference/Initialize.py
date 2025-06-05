@@ -7,16 +7,16 @@ import google.generativeai as genai
 import asyncio
 
 async def initialize_co():
-    return cohere.Client(os.environ.get("COHERE_API_KEY"))
+    return cohere.Client('R9SEqqMXEvlr6puuLoGOoRWnJ2Hobv1Ci50aqWgI')
 
 async def initialize_groq():
-    return Groq(api_key=os.environ.get("GROQ_API_KEY"))
+    return Groq(api_key='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')
 
 async def initialize_genai():
-    genai.configure(api_key=os.environ.get("GENAI_API_KEY"))
+    genai.configure(api_key='AIzaSyC1cxcQNpntxkFbg-Ka5sy-EAAMErvjAiU')
 
 async def initialize_pinecone():
-    pc = Pinecone(api_key=os.environ.get("PINECONE_API_KEY"))
+    pc = Pinecone(api_key='d96e1268-d194-4baf-a21e-8439099d741b')
     index_name = "mindstride"
     if index_name not in pc.list_indexes().names():
         pc.create_index(

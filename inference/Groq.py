@@ -40,7 +40,7 @@ Response:
                 "content": prompt_template,
             }
         ],
-        model="gemma-7b-it",
+        model="llama-3.3-70b-versatile",
     )
 
     return chat_completion.choices[0].message.content

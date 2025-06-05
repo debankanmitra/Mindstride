@@ -8,7 +8,7 @@ from mangum import Mangum
 from inference.Initialize import Intialize
 from inference.Gemini import Query_from_gemini
 from inference.Groq import Query_from_groq
-# import uvicorn
+import uvicorn
 
 
 executor = ThreadPoolExecutor(max_workers=2)
@@ -77,7 +77,7 @@ async def get_gemini_inference(query: UserQuery):
 
 
 # Create the Mangum handler
-handler = Mangum(app)
+# handler = Mangum(app)
 
-# if __name__ == "__main__":
-#     uvicorn.run(app)
+if __name__ == "__main__":
+    uvicorn.run(app)
